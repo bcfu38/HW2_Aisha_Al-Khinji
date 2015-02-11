@@ -1,0 +1,86 @@
+---
+title: "HW2Aisha"
+output: html_document
+   keep_md: yes
+   
+---
+
+## **Home Work# 2*
+
+### Use the GEOmetabd package to find all HCV gene expression data
+### use the Illumina platform submitted by an investigator at Yale. 
+
+This should be done with a single query, showing the title, the GSE accession number, the GPL accession number and the manufacturer and the description of the platform used.
+
+
+
+```{r,echo=TRUE}
+library(GEOmetadb)
+```
+
+## Creat a connection
+```{r,echo=TRUE}
+source("http://bioconductor.org/biocLite.R")
+biocLite(c("org.Hs.eg.db"))
+biocLite()
+```
+
+
+
+
+```{r}
+source("http://bioconductor.org/biocLite.R")
+biocLite()
+```
+
+
+```{r}
+head(dbGetQuery)
+library(GEOmetadb)
+getSQLiteFil()
+```
+
+
+
+```{r}
+con <- dbConnect(SQLite(), "GEOmetadb.sqlite")
+```
+
+```{r}
+source("http://bioconductor.org/biocLite.R")
+```
+
+```{r}
+biocLite()
+```
+
+
+```{r}
+library(GEOmetadb)
+getSQLiteFile()
+```
+
+```{r}
+geo_con<-dbConnect(SQLite(),'GEOmetadb.sqlite') 
+dbListTables(geo_con)
+dbListFields(geo_con, 'gsm')
+dbListFields(geo_con, 'gse')
+dbListFields(geo_con, 'gpl')
+
+```
+
+```{r}
+res<-dbGetQuery(geo_con,"SELECT gse.title FROM gse")
+```
+
+```{r}
+res <- dbGetQuery(geo_con, "SELECT gse.title, gse.gse, gpl.ID, gpl.manufacturer,gpl.description,gsm.gsm, gsm.contact FROM (gse JOIN gse_gpl ON gse.gse=gse_gpl.gse)j JOIN gpl ON j.gpl=gpl.gpl (gsm JOIN gsm=gsm WHERE gse.title LIKE '%HCV%' AND gpl.manufacturer LIKE %Illumina% AND contact LIKE %Yale% ")
+res
+```
+
+```{r}
+library(data.table)
+tblmanu <- data.table(dbGetQuery(geo_con, "SELECT gse.title, gse.gse, gpl.gpl, gpl.manufacturer, gpl.technology, gse.contact FROM (gse JOIN gse_gpl ON gse.gse = gse_gpl.gse) j JOIN gpl ON j.gpl=gpl.gpl WHERE gpl.manufacturer LIKE '%Illumina%' AND gse.contact LIKE '%Yale%' AND gse.title LIKE '%Hepatitis C%'")
+tblmanu
+```
+
