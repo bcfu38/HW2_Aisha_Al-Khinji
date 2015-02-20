@@ -37,7 +37,7 @@ biocLite()
 ```{r}
 head(dbGetQuery)
 library(GEOmetadb)
-getSQLiteFil()
+getSQLiteFile()
 ```
 
 
@@ -74,7 +74,7 @@ res<-dbGetQuery(geo_con,"SELECT gse.title FROM gse")
 ```
 
 ```{r}
-res <- dbGetQuery(geo_con, "SELECT gse.title, gse.gse, gpl.ID, gpl.manufacturer,gpl.description,gsm.gsm, gsm.contact FROM (gse JOIN gse_gpl ON gse.gse=gse_gpl.gse)j JOIN gpl ON j.gpl=gpl.gpl (gsm JOIN gsm=gsm WHERE gse.title LIKE '%HCV%' AND gpl.manufacturer LIKE %Illumina% AND contact LIKE %Yale% ")
+res <- dbGetQuery(geo_con, "SELECT gse.title, gse.gse, gpl.ID, gpl.manufacturer,gpl.description,gsm.gsm, gsm.contact FROM (gse JOIN gse_gpl ON gse.gse=gse_gpl.gse)j JOIN gpl ON j.gpl=gpl.gpl WHERE gse.title LIKE '%HCV%' AND gpl.manufacturer LIKE '%Illumina%' AND gse.contact LIKE '%Yale%' ")
 res
 ```
 
